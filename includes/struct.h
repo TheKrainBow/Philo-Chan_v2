@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 11:27:53 by krain             #+#    #+#             */
-/*   Updated: 2021/11/13 14:54:04 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/13 17:24:05 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	t_philo				*philos;
+	t_philo				*p;
 	pthread_t			*philos_threads;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		mic;
-	long					t_die;
-	long					t_sleep;
-	long					t_eat;
-	long					max_meals;
-	int						n_philos;
+	long				t_die;
+	long				t_sleep;
+	long				t_eat;
+	long				max_meals;
+	int					n_philos;
 }	t_data;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 13:33:29 by krain             #+#    #+#             */
-/*   Updated: 2021/11/13 13:52:13 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/13 17:25:14 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_task	get_task(t_task *val, pthread_mutex_t *mut)
 {
-	t_task ret;
-	
+	t_task	ret;
+
 	pthread_mutex_lock(mut);
 	ret = *val;
 	pthread_mutex_unlock(mut);
@@ -24,8 +24,8 @@ t_task	get_task(t_task *val, pthread_mutex_t *mut)
 
 long	get_long(long *val, pthread_mutex_t *mut)
 {
-	long ret;
-	
+	long	ret;
+
 	pthread_mutex_lock(mut);
 	ret = *val;
 	pthread_mutex_unlock(mut);

@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 12:04:23 by krain             #+#    #+#             */
-/*   Updated: 2021/11/13 17:10:57 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/13 17:20:35 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	*philo_angel(void *p)
 
 	philo = (t_philo *)p;
 	while (get_task(&philo->task, &philo->mutex_task) != DEAD)
-		if (ft_time(philo->t_start) - get_long(&philo->t_last_eat, &philo->mutex_eat) > philo->t_die)
+		if (ft_time(philo->t_start)
+			- get_long(&philo->t_last_eat, &philo->mutex_eat) > philo->t_die)
 			set_task(&philo->task, &philo->mutex_task, DEAD);
 	set_long(&philo->angel, &philo->mutex_angel, 1);
 	return (NULL);
@@ -84,9 +85,7 @@ void	*philo_chan(void *p)
 	{
 		ft_eat(philo);
 		ft_sleep(philo);
-	//	usleep(100);
 	}
 	set_long(&philo->exited, &philo->mutex_exit, 1);
-	//printf("Philo %d exit thread\n", philo->id);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/11 17:57:15 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/13 12:16:30 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/13 17:27:09 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,18 @@ long	ft_time(long base_time)
 	gettimeofday(&current_time, NULL);
 	dest = (current_time.tv_sec * 1000 + (current_time.tv_usec / 1000));
 	return (dest - base_time);
+}
+
+void	ft_usleep(long us)
+{
+	long	objectif;
+	long	ts;
+
+	ts = ft_time(0);
+	objectif = ts + us;
+	while (ts < objectif)
+	{
+		usleep(10);
+		ts = ft_time(0);
+	}
 }

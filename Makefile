@@ -1,7 +1,8 @@
 SRCS_CORE		=	srcs/main.c								\
-					srcs/utils.c								\
-					srcs/philos.c								\
-					srcs/setget.c
+					srcs/utils.c							\
+					srcs/philos.c							\
+					srcs/setget.c							\
+					srcs/init.c
 
 INCLUDES		=	-Iincludes								\
 

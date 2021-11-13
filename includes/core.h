@@ -6,7 +6,7 @@
 /*   By: krain <krain@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 14:04:56 by mdelwaul          #+#    #+#             */
-/*   Updated: 2021/11/13 15:25:14 by krain            ###   ########.fr       */
+/*   Updated: 2021/11/13 17:28:55 by krain            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ long	get_long(long *val, pthread_mutex_t *mut);
 void	set_task(t_task *val, pthread_mutex_t *mut, t_task new_val);
 void	set_long(long *val, pthread_mutex_t *mut, long new_val);
 void	*philo_chan(void *p);
+void	init_data(t_data *d, char **av);
+void	free_data(t_data *d);
+void	start_simulation(t_data *d);
 void	ft_usleep(long us);
 
 #endif
