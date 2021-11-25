@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:42:42 by magostin          #+#    #+#             */
-/*   Updated: 2021/11/25 12:42:43 by magostin         ###   ########.fr       */
+/*   Updated: 2021/11/25 14:06:11 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	free_data(t_data *d)
 	free(d->p);
 	free(d->forks);
 	free(d->philos_threads);
+	free(d->angel_threads);
 	free(d);
 }
 
