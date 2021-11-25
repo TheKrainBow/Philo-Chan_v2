@@ -32,7 +32,7 @@ void	ft_talk(t_philo *philo, char *str)
 	pthread_mutex_lock(philo->mic);
 	printf("%ld\t%d %s\n", ft_time(philo->sim_start), philo->id, str);
 	pthread_mutex_unlock(philo->mic);
-	printf(WHITE);
+	//printf(WHITE);
 }
 
 void	ft_eat(t_philo *philo)
@@ -54,7 +54,7 @@ void	ft_eat(t_philo *philo)
 	meals = get_long(&philo->n_meals, &philo->mutex_eat);
 	set_long(&philo->n_meals, &philo->mutex_eat, meals + 1);
 	set_long(&philo->t_last_eat, &philo->mutex_eat, ft_time(philo->t_start));
-	ft_usleep(philo->t_eat);
+	ft_usleep(philo->t_eat, philo);
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
 }
@@ -64,23 +64,15 @@ void	ft_sleep(t_philo *philo)
 	if (get_task(&philo->task, &philo->mutex_task) == DEAD)
 		return ;
 	ft_talk(philo, "is sleeping");
-	ft_usleep(philo->t_sleep);
+	ft_usleep(philo->t_sleep, philo);
 	ft_talk(philo, "is thinking");
 }
 
 void	*philo_chan(void *p)
 {
 	t_philo			*philo;
-	pthread_t		death_angel;
-	t_task			task;
 
 	philo = (t_philo *)p;
-	philo->t_start = ft_time(0);
-	philo->t_last_eat = 0;
-	philo->angel = 0;
-	task = THINK;
-	pthread_create(&death_angel, NULL, philo_angel, philo);
-	pthread_detach(death_angel);
 	while (get_task(&philo->task, &philo->mutex_task) != DEAD)
 	{
 		ft_eat(philo);

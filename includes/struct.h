@@ -41,6 +41,7 @@ typedef struct s_philo
 	pthread_mutex_t		*l_fork;
 	pthread_mutex_t		*r_fork;
 	pthread_mutex_t		*mic;
+	pthread_t			death_angel;
 }	t_philo;
 
 typedef struct s_data

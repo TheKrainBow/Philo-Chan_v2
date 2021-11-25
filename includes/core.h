@@ -32,6 +32,7 @@ void	*philo_chan(void *p);
 void	init_data(t_data *d, char **av);
 void	free_data(t_data *d);
 void	start_simulation(t_data *d);
-void	ft_usleep(long us);
+void	ft_usleep(long us, t_philo *philo);
+void	*philo_angel(void *p);
 
 #endif

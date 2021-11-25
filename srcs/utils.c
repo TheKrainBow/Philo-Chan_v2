@@ -67,16 +67,16 @@ long	ft_time(long base_time)
 	return (dest - base_time);
 }
 
-void	ft_usleep(long us)
+void	ft_usleep(long us, t_philo *philo)
 {
 	long	objectif;
 	long	ts;
 
 	ts = ft_time(0);
 	objectif = ts + us;
-	while (ts < objectif)
+	while (ts < objectif && get_task(&philo->task, &philo->mutex_task) != DEAD)
 	{
-		usleep(10);
+		usleep(100);
 		ts = ft_time(0);
 	}
 }

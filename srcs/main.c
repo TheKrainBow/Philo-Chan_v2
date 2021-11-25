@@ -52,8 +52,10 @@ void	philocide(t_data *d)
 		{
 			sum += get_long(&d->p[i].exited, &d->p[i].mutex_exit);
 			sum += get_long(&d->p[i].angel, &d->p[i].mutex_angel);
+			usleep(100);
 		}
 	}
+	printf("All died!\n");
 }
 
 void	death_loop(t_data *d)
@@ -85,6 +87,13 @@ void	death_loop(t_data *d)
 	philocide(d);
 }
 
+void	one_philo(t_data *d)
+{
+	printf("0\t1 has taken a fork\n");
+	usleep(d->t_die * 1000);
+	printf("%ld\t1 died\n", d->t_die);
+}
+
 int	main(int ac, char **av)
 {
 	t_data		*d;
@@ -97,8 +106,13 @@ int	main(int ac, char **av)
 		d->max_meals = ft_atoi(av[5]);
 	else
 		d->max_meals = 2147483647;
-	start_simulation(d);
-	death_loop(d);
+	if (d->n_philos == 1)
+		one_philo(d);
+	else
+	{
+		start_simulation(d);
+		death_loop(d);
+	}
 	free_data(d);
 	return (0);
 }
