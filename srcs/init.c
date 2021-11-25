@@ -30,6 +30,7 @@ void	init_data(t_data *d, char **av)
 	}
 	pthread_mutex_init(&d->mic, NULL);
 	d->philos_threads = malloc(sizeof(pthread_t) * d->n_philos);
+	d->angel_threads = malloc(sizeof(pthread_t) * d->n_philos);
 	d->t_die = ft_atoi(av[1]);
 	d->t_eat = ft_atoi(av[2]);
 	d->t_sleep = ft_atoi(av[3]);
@@ -76,6 +77,25 @@ void	set_forks(t_data *d, int i)
 	}
 }
 
+void	start_threads(t_data *d)
+{
+	int	i;
+
+	i = -1;
+	while (++i < d->n_philos)
+	{
+		pthread_create(d->philos_threads + i, NULL, philo_chan, d->p + i);
+		pthread_detach(d->philos_threads[i]);
+		usleep(50);
+	}
+	i = -1;
+	while (++i < d->n_philos)
+	{
+		pthread_create(d->angel_threads + i, NULL, philo_angel, d->p + i);
+		pthread_detach(d->angel_threads[i]);
+	}
+}
+
 void	start_simulation(t_data *d)
 {
 	int		i;
@@ -92,20 +112,13 @@ void	start_simulation(t_data *d)
 		d->p[i].t_eat = d->t_eat;
 		d->p[i].n_meals = 0;
 		d->p[i].max_meals = d->max_meals;
-		d->p[i].exited = 0;
+		d->p[i].exited = 1;
 		d->p[i].mic = &d->mic;
 		set_forks(d, i);
 		d->p[i].sim_start = starting_time;
-		d->p[i].t_start = ft_time(0);
+		d->p[i].t_start = starting_time;
 		d->p[i].t_last_eat = 0;
-		d->p[i].angel = 0;
+		d->p[i].angel = 1;
 	}
-	i = -1;
-	while (++i < d->n_philos)
-	{
-		pthread_create(d->philos_threads + i, NULL, philo_chan, d->p + i);
-		pthread_detach(d->philos_threads[i]);
-		pthread_create(&d->p[i].death_angel, NULL, philo_angel, d->p + i);
-		pthread_detach(d->p[i].death_angel);
-	}
+	start_threads(d);
 }

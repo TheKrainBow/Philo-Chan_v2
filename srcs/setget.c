@@ -35,7 +35,8 @@ long	get_long(long *val, pthread_mutex_t *mut)
 void	set_task(t_task *val, pthread_mutex_t *mut, t_task new_val)
 {
 	pthread_mutex_lock(mut);
-	*val = new_val;
+	if (*val != DEAD || *val == EAT)
+		*val = new_val;
 	pthread_mutex_unlock(mut);
 }
 

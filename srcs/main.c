@@ -26,7 +26,7 @@ int	ft_arg_error(int ac, char **av)
 	}
 	while (++i < ac)
 	{
-		if (av[i] < 0 || !ft_strisint(av[i]))
+		if (ft_atoi(av[i]) <= 0 || !ft_strisint(av[i]) || ft_strlen(av[i]) > 10)
 		{
 			printf("Arg %d is either negatif or not a valid int.\n", i);
 			return (1);
@@ -35,16 +35,21 @@ int	ft_arg_error(int ac, char **av)
 	return (0);
 }
 
-void	philocide(t_data *d)
+void	philocide(t_data *d, int meal, int i)
 {
-	int		i;
-	int		sum;
+	long	sum;
 
+	pthread_mutex_lock(&d->mic);
+	if (meal != d->n_philos)
+		printf("%5ld  %d died\n", ft_time(d->p[i].t_start), i + 1);
+	else
+		printf("-- Everybody ate %ld times --\n", d->max_meals);
 	i = -1;
 	while (++i < d->n_philos)
 		set_task(&d->p[i].task, &d->p[i].mutex_task, DEAD);
-	sum = 0;
-	while (sum != d->n_philos * 2)
+	pthread_mutex_unlock(&d->mic);
+	sum = 1;
+	while (sum)
 	{
 		i = -1;
 		sum = 0;
@@ -52,10 +57,8 @@ void	philocide(t_data *d)
 		{
 			sum += get_long(&d->p[i].exited, &d->p[i].mutex_exit);
 			sum += get_long(&d->p[i].angel, &d->p[i].mutex_angel);
-			usleep(100);
 		}
 	}
-	printf("All died!\n");
 }
 
 void	death_loop(t_data *d)
@@ -81,17 +84,14 @@ void	death_loop(t_data *d)
 				meal++;
 		}
 	}
-	pthread_mutex_lock(&d->mic);
-	if (meal != d->n_philos)
-		printf("%ld\t%d died\n", ft_time(d->p[i].t_start), i + 1);
-	philocide(d);
+	philocide(d, meal, i);
 }
 
 void	one_philo(t_data *d)
 {
-	printf("0\t1 has taken a fork\n");
+	printf("%5d  %d has taken a fork\n", 0, 1);
 	usleep(d->t_die * 1000);
-	printf("%ld\t1 died\n", d->t_die);
+	printf("%5ld  %d died\n", d->t_die, 1);
 }
 
 int	main(int ac, char **av)

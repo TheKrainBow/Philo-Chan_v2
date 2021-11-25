@@ -12,6 +12,16 @@
 
 #include "core.h"
 
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str && str[i])
+		i++;
+	return (i);
+}
+
 int	ft_strisint(char *str)
 {
 	int	i;
@@ -70,13 +80,11 @@ long	ft_time(long base_time)
 void	ft_usleep(long us, t_philo *philo)
 {
 	long	objectif;
-	long	ts;
 
-	ts = ft_time(0);
-	objectif = ts + us;
-	while (ts < objectif && get_task(&philo->task, &philo->mutex_task) != DEAD)
+	objectif = ft_time(0) + us;
+	while (ft_time(0) < objectif
+		&& get_task(&philo->task, &philo->mutex_task) != DEAD)
 	{
 		usleep(100);
-		ts = ft_time(0);
 	}
 }
