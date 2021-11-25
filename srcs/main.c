@@ -6,7 +6,7 @@
 /*   By: magostin <magostin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:42:48 by magostin          #+#    #+#             */
-/*   Updated: 2021/11/25 12:42:50 by magostin         ###   ########.fr       */
+/*   Updated: 2021/11/25 14:10:24 by magostin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,10 @@ int	main(int ac, char **av)
 
 	d = malloc(sizeof(t_data));
 	if (ft_arg_error(ac, av))
+	{
+		free(d);
 		return (1);
+	}
 	init_data(d, av + 1);
 	if (ac == 6)
 		d->max_meals = ft_atoi(av[5]);
